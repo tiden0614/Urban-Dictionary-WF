@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>bundleid</key>
+	<string></string>
+	<key>category</key>
+	<string>Productivity</string>
+	<key>connections</key>
+	<dict>
+		<key>0AA1071A-5285-4B11-BF9D-366F869E2635</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>B205D929-ABA7-4495-A031-7384D7EA9BF2</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+			</dict>
+		</array>
+	</dict>
+	<key>createdby</key>
+	<string>tiden</string>
+	<key>description</key>
+	<string></string>
+	<key>disabled</key>
+	<false/>
+	<key>name</key>
+	<string>Urban Dictionary</string>
+	<key>objects</key>
+	<array>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>argumenttype</key>
+				<integer>0</integer>
+				<key>escaping</key>
+				<integer>36</integer>
+				<key>keyword</key>
+				<string>ud</string>
+				<key>runningsubtext</key>
+				<string>Fetching from urban dict...</string>
+				<key>script</key>
+				<string>#!/usr/bin/python
+#coding: utf8
+import urllib, urllib2, sys, json
+from Feedback import Feedback
+#query = sys.argv[1]
+query = "{query}"
+fb = Feedback()
+if query:
+    query = query.replace(" ", "+")
+    url = "http://api.urbandictionary.com/v0/define?term=" + query
+    arg = "http://www.urbandictionary.com/define.php?term=" + query
+    header = { "User-Agent": "mozilla/5.0 (windows; U; windows NT 5.1; zh-cn)" }
+    req = urllib2.Request(url, None, header)
+    response = urllib2.urlopen(req).read()
+    result = json.loads(response)
+    for l in result["list"]:
+        w, d, e = l["word"], l["definition"], l["example"]
+        if not (d == "" and e == ""):
+            fb.add_item(d, subtitle=e, arg=arg)
+    print fb</string>
+				<key>title</key>
+				<string>Urban Dict</string>
+				<key>type</key>
+				<integer>3</integer>
+				<key>withspace</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.scriptfilter</string>
+			<key>uid</key>
+			<string>0AA1071A-5285-4B11-BF9D-366F869E2635</string>
+			<key>version</key>
+			<integer>0</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>plusspaces</key>
+				<false/>
+				<key>url</key>
+				<string>{query}</string>
+				<key>utf8</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.openurl</string>
+			<key>uid</key>
+			<string>B205D929-ABA7-4495-A031-7384D7EA9BF2</string>
+			<key>version</key>
+			<integer>0</integer>
+		</dict>
+	</array>
+	<key>readme</key>
+	<string></string>
+	<key>uidata</key>
+	<dict>
+		<key>0AA1071A-5285-4B11-BF9D-366F869E2635</key>
+		<dict>
+			<key>ypos</key>
+			<real>20</real>
+		</dict>
+		<key>B205D929-ABA7-4495-A031-7384D7EA9BF2</key>
+		<dict>
+			<key>ypos</key>
+			<real>20</real>
+		</dict>
+	</dict>
+	<key>webaddress</key>
+	<string></string>
+</dict>
+</plist>
